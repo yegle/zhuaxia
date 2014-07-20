@@ -1,12 +1,15 @@
 # -*- coding:utf-8 -*-
+
+from __future__ import absolute_import
+
 import time
 import re
 import requests
-import log, config, util
 import urllib
 from os import path
-import downloader
-from obj import Song
+
+from . import log, config, util, downloader
+from .obj import Song
 
 LOG = log.get_logger("zxLogger")
 

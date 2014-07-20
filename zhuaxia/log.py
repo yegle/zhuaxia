@@ -1,7 +1,10 @@
 # -*- coding:utf-8 -*-
+
+from __future__ import print_function, absolute_import
+
 import logging, logging.handlers
 import os
-import config
+from . import config
 
 LVL_DICT={
         'debug' : logging.DEBUG,
@@ -35,15 +38,15 @@ def hl(text,style_key):
 
 def test_hl():
     for x in STYLE:
-        print hl('['+x+']: this is test', x)
+        print(hl('['+x+']: this is test', x))
 
 def err(msg):
     """this is for normal error output before the logger was setup"""
-    print hl('Error: ','error') + msg
+    print(hl('Error: ','error') + msg)
 
 def warn(msg):
     """this is for normal warning output before the logger was setup"""
-    print hl('Warning: ','warning') + msg
+    print(hl('Warning: ','warning') + msg)
 
 class LogFormatter(logging.Formatter):
     """define different format for different log levels"""

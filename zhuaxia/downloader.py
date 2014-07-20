@@ -1,13 +1,21 @@
 # -*- coding:utf-8 -*-
+
+from __future__ import absolute_import
+
 from os import path
 import sys
 import requests
-import config, log, util
 import datetime,time
-from threadpool import ThreadPool
-from Queue import Queue
 from mutagen.id3 import ID3,TRCK,TIT2,TALB,TPE1,APIC,TDRC,COMM,TPOS,USLT
 from threading import Thread
+
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
+
+from . import config, log, util
+from .threadpool import ThreadPool
 
 LOG = log.get_logger('zxLogger')
 
@@ -28,7 +36,7 @@ def print_progress():
     #the factor of width used for progress bar
     percent_bar_factor = 0.4
     width = util.get_terminal_size()[1] -5
-    bar_count = (int(width*percent_bar_factor)-2/10) # number of percent bar
+    bar_count = (int(width*percent_bar_factor)-2//10) # number of percent bar
     #line = log.hl(u' %s\n'% ('-'*90), 'cyan')
     line = log.hl(u' %s\n'% ('+'*width), 'cyan')
     sep = log.hl(u' %s\n'% ('='*width), 'cyan')

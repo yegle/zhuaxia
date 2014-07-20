@@ -1,12 +1,22 @@
 # -*- coding:utf-8 -*-
+
+from __future__ import absolute_import
+
 import time
 import re
 import requests
-import log, config, util
-import md5
+import hashlib
 from os import path
-import downloader
-from obj import Song
+from base64 import b64encode
+
+try:
+    range = xrange
+except NameError:
+    pass
+
+from . import log, config, util, downloader
+from .obj import Song
+
 
 LOG = log.get_logger("zxLogger")
 
@@ -174,14 +184,14 @@ class Netease(object):
         return requests.get(link, headers=HEADERS)
 
     def encrypt_dfsId(self,dfsId):
-        byte1 = bytearray('3go8&$8*3*3h0k(2)2')
-        byte2 = bytearray(str(dfsId))
+        byte1 = [ord(x) for x in '3go8&$8*3*3h0k(2)2']
+        byte2 = bytearray(str(dfsId), 'utf-8')
         byte1_len = len(byte1)
-        for i in xrange(len(byte2)):
-            byte2[i] = byte2[i]^byte1[i%byte1_len]
-        m = md5.new()
+        for i in range(len(byte2)):
+            byte2[i] ^= byte1[i%byte1_len]
+        m = hashlib.md5()
         m.update(byte2)
-        result = m.digest().encode('base64')[:-1]
+        result = b64encode(m.digest()).decode('utf-8')
         result = result.replace('/', '_')
         result = result.replace('+', '-')
         return result

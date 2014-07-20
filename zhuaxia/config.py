@@ -1,9 +1,17 @@
+from __future__ import absolute_import
+
 from os import path 
 import os
 import shutil, sys
-import ConfigParser
-import log, util
 import traceback
+import logging
+
+from . import util
+
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser
 
 
 VERSION     = '2.0.0'                #software version
@@ -55,8 +63,8 @@ def load_single_config(conf_parser, conf_key):
             if ty =='p':
                 util.create_dir(v)
             globals()[gkey] = v
-    except:
-        log.warn(config_warn_msg % (conf_key, str(globals()[var_dict[conf_key][0]])))
+    except Exception:
+        logging.warn(config_warn_msg % (conf_key, str(globals()[var_dict[conf_key][0]])))
 
 def load_config():
     
@@ -64,7 +72,7 @@ def load_config():
     if not path.exists(CONF_FILE):
         init_config()
 
-    cf = ConfigParser.ConfigParser()
+    cf = ConfigParser()
     cf.read(CONF_FILE);
 
     for k in var_dict:

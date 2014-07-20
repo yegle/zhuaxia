@@ -1,5 +1,8 @@
 #!/bin/python
 # -*- coding:utf-8 -*-
+
+from __future__ import print_function
+
 import sys,getopt
 import zhuaxia.config as config
 import zhuaxia.util as util
@@ -50,11 +53,11 @@ help_info = u""" %(cyan)s
 
 def usage():
     """print usage information"""
-    print help_info % log.STYLE
+    print(help_info % log.STYLE)
 
 def version():
     """print version"""
-    print u'zhuaxia (抓虾) ' + config.VERSION
+    print(u'zhuaxia (抓虾) ' + config.VERSION)
 
 if __name__ == '__main__':
     logger_name = 'zxLogger'

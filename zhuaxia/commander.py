@@ -1,13 +1,16 @@
 # -*- coding:utf-8 -*-
 
+from __future__ import print_function, absolute_import
+
+
 import sys
-import config ,util ,logging ,log,downloader
-import xiami as xm
-import netease
 import re
-from threadpool import ThreadPool
 from time import sleep
 from os import path
+
+from . import config, log, downloader, netease
+from . import xiami as xm
+from .threadpool import ThreadPool
 
 LOG = log.get_logger("zxLogger")
 
@@ -38,7 +41,7 @@ def shall_I_begin(in_str, is_file=False, is_hq=False):
     elif re.match(pat_163, in_str):
         from_url_163(m163, in_str)
 
-    print border
+    print(border)
     if len(dl_songs):
         LOG.info(u' 下载任务总数: %d \n 3秒后开始下载' % len(dl_songs))
         sleep(3)
@@ -179,9 +182,9 @@ def from_file(xm_obj,m163, infile):
 
     global total, done
     total = len(urls)
-    print border
+    print(border)
     LOG.info(u' 文件包含链接总数: %d' % total)
-    print border
+    print(border)
     pool = ThreadPool(config.THREAD_POOL_SIZE)
     for link in [u for u in urls if u]:
         link = link.rstrip('\n')

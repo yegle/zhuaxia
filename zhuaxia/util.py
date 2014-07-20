@@ -3,10 +3,13 @@ import subprocess
 import re
 import json
 import os
-import config
 import shutil
 import random, string
-import HTMLParser
+
+try:
+    from html.parser import HTMLParser
+except ImportError:
+    from HTMLParser import HTMLParser
 
 #used by get_terminal_size
 import fcntl, termios, struct
@@ -46,7 +49,7 @@ def create_dir(dir_name):
             os.makedirs(dir_name)
 
 def decode_html(s):
-    return HTMLParser.HTMLParser().unescape(s)
+    return HTMLParser().unescape(s)
 
 def ljust(s,n,fillchar=' '):
     """ if string has unicode chars, the built-in l/rjust cannot 

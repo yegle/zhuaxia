@@ -1,8 +1,16 @@
 # -*- coding:utf-8 -*-
-import log
-from Queue import Queue
+
+from __future__ import absolute_import
+
 from threading import Thread
 import traceback
+
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
+
+from . import log
 
 LOG = log.get_logger('zxLogger')
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 

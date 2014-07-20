@@ -1,7 +1,11 @@
 # -*- coding:utf-8 -*-
+
+from __future__ import absolute_import
+
 import time
-import log, config, util
 from os import path
+
+from . import log, config, util
 
 LOG = log.get_logger("zxLogger")
 
